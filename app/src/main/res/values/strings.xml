@@ -32,8 +32,13 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="emptyLoginPasswordError">Login and password must be filled</string>
+    <string name="emptyFieldsError">All fields must be filled</string>
+    <string name="differentPasswords">Passwords don\'t match</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="signInDialogTitle">Sign in</string>
     <string name="signOutDialogTitle">Sign out</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="to_sign_up">To sign up</string>
 </resources>
