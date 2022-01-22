@@ -33,8 +33,13 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="emptyLoginPasswordError">Логин и пароль должны быть заполнены</string>
+    <string name="emptyFieldsError">Все поля должны быть заполнены</string>
+    <string name="differentPasswords">Пароли не совпадают</string>
     <string name="ok">OK</string>
     <string name="cancel">Отмена</string>
     <string name="signInDialogTitle">Войти в аккаунт</string>
     <string name="signOutDialogTitle">Выйти из аккаунта</string>
+    <string name="name">Имя</string>
+    <string name="confirm_password">Подтверждение пароля</string>
+    <string name="to_sign_up">Зарегистрироваться</string>
 </resources>
