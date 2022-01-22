@@ -3,8 +3,10 @@ package ru.netology.nmedia.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,12 +15,15 @@ import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
+import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
+import ru.netology.nmedia.viewmodel.AuthViewModel
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class FeedFragment : Fragment() {
     private val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    private val authViewModel: AuthViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +38,11 @@ class FeedFragment : Fragment() {
             }
 
             override fun onLike(post: Post) {
-                viewModel.likeById(post.id)
+                if (authViewModel.authenticated) {
+                    viewModel.likeById(post.id)
+                } else {
+                    createSignInDialog()
+                }
             }
 
             override fun onRemove(post: Post) {
@@ -76,9 +85,47 @@ class FeedFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+            if (authViewModel.authenticated) {
+                findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+            } else {
+                createSignInDialog()
+            }
         }
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.signout -> {
+                AppAuth.getInstance().removeAuth()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun createSignInDialog() {
+        val alertDialog: AlertDialog = let {
+            val builder = AlertDialog.Builder(this.requireContext())
+            builder.apply {
+                setTitle(getString(R.string.signInDialogTitle))
+                setPositiveButton(R.string.ok
+                ) { _, _ ->
+                    findNavController().navigate(R.id.registrationFragment)
+                }
+                setNegativeButton(R.string.cancel
+                ) { _, _ ->
+                    // User cancelled the dialog, do nothing
+                }
+            }
+            builder.create()
+        }
+        alertDialog.show()
     }
 }

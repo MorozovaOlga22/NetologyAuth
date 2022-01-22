@@ -33,4 +33,8 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="emptyLoginPasswordError">Логин и пароль должны быть заполнены</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Отмена</string>
+    <string name="signInDialogTitle">Войти в аккаунт</string>
+    <string name="signOutDialogTitle">Выйти из аккаунта</string>
 </resources>

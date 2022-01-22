@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +12,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import ru.netology.nmedia.R
+import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.databinding.FragmentNewPostBinding
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.util.StringArg
@@ -45,6 +47,10 @@ class NewPostFragment : Fragment() {
                     viewModel.save()
                     AndroidUtils.hideKeyboard(requireView())
                 }
+                true
+            }
+            R.id.signout -> {
+                createSignOutDialog()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -128,5 +134,25 @@ class NewPostFragment : Fragment() {
     override fun onDestroyView() {
         fragmentBinding = null
         super.onDestroyView()
+    }
+
+    private fun createSignOutDialog() {
+        val alertDialog: AlertDialog = let {
+            val builder = AlertDialog.Builder(this.requireContext())
+            builder.apply {
+                setTitle(getString(R.string.signOutDialogTitle))
+                setPositiveButton(R.string.ok
+                ) { _, _ ->
+                    AppAuth.getInstance().removeAuth()
+                    findNavController().navigateUp()
+                }
+                setNegativeButton(R.string.cancel
+                ) { _, _ ->
+                    // User cancelled the dialog, do nothing
+                }
+            }
+            builder.create()
+        }
+        alertDialog.show()
     }
 }
