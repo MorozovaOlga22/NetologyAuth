@@ -32,4 +32,8 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="emptyLoginPasswordError">Login and password must be filled</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="signInDialogTitle">Sign in</string>
+    <string name="signOutDialogTitle">Sign out</string>
 </resources>

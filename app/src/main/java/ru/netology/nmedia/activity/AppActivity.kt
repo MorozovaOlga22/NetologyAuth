@@ -70,11 +70,6 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                 AppAuth.getInstance().setAuth(5, "x-token")
                 true
             }
-            R.id.signout -> {
-                // TODO: just hardcode it, implementation must be in homework
-                AppAuth.getInstance().removeAuth()
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
