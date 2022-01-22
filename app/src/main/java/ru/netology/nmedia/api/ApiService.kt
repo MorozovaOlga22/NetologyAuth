@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import ru.netology.nmedia.BuildConfig
 import ru.netology.nmedia.auth.AppAuth
+import ru.netology.nmedia.auth.AuthState
 import ru.netology.nmedia.dto.Media
 import ru.netology.nmedia.dto.Post
 
@@ -39,7 +40,7 @@ private val retrofit = Retrofit.Builder()
     .client(okhttp)
     .build()
 
-interface PostsApiService {
+interface ApiService {
     @GET("posts")
     suspend fun getAll(): Response<List<Post>>
 
@@ -64,10 +65,14 @@ interface PostsApiService {
     @Multipart
     @POST("media")
     suspend fun upload(@Part media: MultipartBody.Part): Response<Media>
+
+    @FormUrlEncoded
+    @POST("users/authentication")
+    suspend fun updateUser(@Field("login") login: String, @Field("pass") pass: String): Response<AuthState>
 }
 
-object PostsApi {
-    val service: PostsApiService by lazy {
-        retrofit.create(PostsApiService::class.java)
+object Api {
+    val SERVICE: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
     }
 }

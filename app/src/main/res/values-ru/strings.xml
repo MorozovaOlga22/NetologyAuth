@@ -29,4 +29,8 @@
     <string name="sign_in">Вход</string>
     <string name="sign_up">Регистрация</string>
     <string name="sign_out">Выход</string>
+    <string name="to_sign_in">Войти</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="emptyLoginPasswordError">Логин и пароль должны быть заполнены</string>
 </resources>
